@@ -1,0 +1,2 @@
+MATCH node
+RETURN node
