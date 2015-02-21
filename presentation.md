@@ -74,3 +74,23 @@ MATCH (me:Person)-->(friend:Person)-->(friend_of_friend:Person)
 WHERE me.name = 'A'
 RETURN count(DISTINCT friend_of_friend), count(friend_of_friend)
 ```
+
+--
+
+### With code!
+
+``` ruby
+query = "CREATE (n { nodes })\nRETURN n"
+
+nodes = {
+  :nodes => [{
+    :name => "Foo"
+  }, {
+    :name => "Bar"
+  }, {
+    :name => "Baz"
+  }]
+}
+
+@neo.execute_query(query, nodes)
+```
