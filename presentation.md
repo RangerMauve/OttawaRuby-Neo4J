@@ -1,29 +1,26 @@
-title: Graph Databases And Ruby
-output: presentation.html
-controls: true
-theme: sudodoki/reveal-cleaver-theme
-author:
-  name: Georgiy S.
-  twitter: LoneMauve
+title: Graph Databases And Ruby output: presentation.html controls: true theme: sudodoki/reveal-cleaver-theme author: name: Georgiy S. twitter: LoneMauve
 
 --
 
-# Graph Databases And Ruby
-## Using Neo4J to make applications based around graphs
+Graph Databases And Ruby
+========================
+
+Using Neo4J to make applications based around graphs
+----------------------------------------------------
 
 --
 
 ### What is a Graph?
 
-* A series of vertecies conneted by edges
+-	A series of vertecies conneted by edges
 
-* Each vertex represents an entity in the graph
+-	Each vertex represents an entity in the graph
 
-* Each edge is a relationship between two entities
+-	Each edge is a relationship between two entities
 
-* Can be directed or undirected
+-	Can be directed or undirected
 
-* Edges and Vertecies can have properties
+-	Edges and Vertecies can have properties
 
 ![A directed graph](images/directed_graph.png)
 
@@ -31,23 +28,23 @@ author:
 
 ### What can they model?
 
-* Anything that has relationships between things
+-	Anything that has relationships between things
 
-* A social network
+-	A social network
 
-* Item catalogues
+-	Item catalogues
 
-* Movie listings with actors/directors/genres
+-	Movie listings with actors/directors/genres
 
 --
 
 ### Why use them?
 
-* Easier to model data and relationships
+-	Easier to model data and relationships
 
-* Easier to do complex traversals between
+-	Easier to do complex traversals between
 
-* Traversal is more efficient because vertecies are linked directly
+-	Traversal is more efficient because vertecies are linked directly
 
 --
 
@@ -79,7 +76,7 @@ RETURN count(DISTINCT friend_of_friend), count(friend_of_friend)
 
 ### With code!
 
-``` ruby
+```ruby
 query = "CREATE (n { nodes })\nRETURN n"
 
 nodes = {
