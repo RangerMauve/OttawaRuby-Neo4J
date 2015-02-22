@@ -134,10 +134,93 @@ MATCH (node1:LABEL{property:"value"}) -[relationship:LABEL]-> (node2)
 
 ### Write operations
 
-Kawaii Neko desu~
+- `CREATE` : Creates new nodes or relationships
+
+- `MERGE` : Match a pattern, or create it if it doesn't exist
+
+- `SET` : Set a property of a node or relationship
+
+- `DELETE` : Delete a node or relationship from the graph
+
+- `REMOVE` : Remove a label or property from a node/relationship
 
 --
 
-### Example graph 1
+### Example graph
 
 ![Example 1](images/example1.svg)
+
+--
+
+### Find the number of unique relationships
+
+```
+MATCH (a)-[r:KNOWS]-(b)
+RETURN count(DISTINCT r) As relationships
+```
+|relationships|
+|---|
+|3|
+
+--
+
+### Find all the names, alphabetically
+
+```
+MATCH (n)
+RETURN n.name AS name
+ORDER BY n.name
+```
+|name|
+|----|
+|A|
+|B|
+|C|
+|D|
+
+--
+
+### Add some rivalries
+
+```
+MATCH (a { eyes: "brown" })
+WITH a
+MATCH (b { eyes: "blue" })
+WITH a, b
+CREATE (a)-[h:HATES]->(b)
+RETURN h AS hate
+```
+|hate|
+|----|
+|(0)-[3:HATES]->(2)|
+|(0)-[4:HATES]->(3)|
+
+--
+
+### Everyone (without blue eyes) who knows someone that knows someone with blue eyes
+
+```
+MATCH (a)-[:KNOWS]-(b)-[:KNOWS]-(c { eyes:"blue" })
+WHERE NOT a.eyes = "blue"
+RETURN DISTINCT a AS who
+```
+
+|who|
+|---|
+|(0:Person {eyes:"brown", name:"D"})|
+
+--
+
+### Find the most popular person
+
+```
+MATCH (a)-[r:KNOWS]-(b)
+WITH a.name AS name, count(r) AS knows
+RETURN name, knows
+ORDER BY knows DESC
+LIMIT 1
+```
+
+|name|knows|
+|---|---|
+|A|3|
