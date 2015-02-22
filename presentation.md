@@ -1,12 +1,16 @@
-title: Graph Databases And Ruby output: presentation.html controls: true theme: sudodoki/reveal-cleaver-theme author: name: Georgiy S. twitter: LoneMauve
+title: Graph Databases And Ruby
+
+output: presentation.html
+
+controls: true
+
+theme: sudodoki/reveal-cleaver-theme
 
 --
 
-Graph Databases And Ruby
-========================
+# Graph Databases And Ruby
 
-Using Neo4J to make applications based around graphs
-----------------------------------------------------
+## Using Neo4J to make applications based around graphs
 
 --
 
@@ -21,6 +25,10 @@ Using Neo4J to make applications based around graphs
 -	Can be directed or undirected
 
 -	Edges and Vertecies can have properties
+
+--
+
+### What it looks like
 
 ![A directed graph](images/directed_graph.png)
 
@@ -91,3 +99,45 @@ nodes = {
 
 @neo.execute_query(query, nodes)
 ```
+
+--
+
+### Cypher
+
+```
+MATCH (node1:LABEL{property:"value"}) -[relationship:LABEL]-> (node2)
+```
+
+-	A query language made for Neo4J
+
+-	Makes traversing graphs as simple as ascii art
+
+-	Language is similar to SQL
+
+--
+
+### Read operations
+
+-	Patterns : Patterns describe nodes or paths
+
+-	`MATCH` : Searches for nodes, relationships, or paths that match a given pattern
+
+-	`WHERE` : Narrows down the search with additional constraints
+
+- `RETURN` : Return the results for the query
+
+- `ORDER BY` : Order the results of the query
+
+- `SKIP` / `LIMIT` : Number of results to skip / Max number of results to get
+
+--
+
+### Write operations
+
+Kawaii Neko desu~
+
+--
+
+### Example graph 1
+
+![Example 1](images/example1.svg)
