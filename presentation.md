@@ -16,7 +16,7 @@ theme: sudodoki/reveal-cleaver-theme
 
 ### What is a Graph?
 
--	A series of vertecies conneted by edges
+-	A series of vertices connected by edges
 
 -	Each vertex represents an entity in the graph
 
@@ -24,7 +24,7 @@ theme: sudodoki/reveal-cleaver-theme
 
 -	Can be directed or undirected
 
--	Edges and Vertecies can have properties
+-	Edges and Vertices can have properties
 
 --
 
@@ -44,15 +44,19 @@ theme: sudodoki/reveal-cleaver-theme
 
 -	Movie listings with actors/directors/genres
 
+- User interactions
+
 --
 
 ### Why use them?
 
--	Easier to model data and relationships
+-	Easier to model data with relationships
 
--	Easier to do complex traversals between
+-	Easier to do complex traversals between nodes
 
--	Traversal is more efficient because vertecies are linked directly
+-	Traversal is more efficient than tables, nodes link directly by reference
+
+- Look Ma, no JOINs!
 
 --
 
@@ -85,7 +89,7 @@ RETURN count(DISTINCT friend_of_friend), count(friend_of_friend)
 ### With code!
 
 ```ruby
-query = "CREATE (n { nodes })\nRETURN n"
+query = "CREATE (n { nodes })\nRETURN n AS node"
 
 nodes = {
   :nodes => [{
@@ -105,7 +109,7 @@ nodes = {
 ### Cypher
 
 ```
-MATCH (node1:LABEL{property:"value"}) -[relationship:LABEL]-> (node2)
+MATCH (node1:LABEL{property:"value"}) -[relationship:LABEL]-> (node2) RETURN node2
 ```
 
 -	A query language made for Neo4J
@@ -224,3 +228,43 @@ LIMIT 1
 |name|knows|
 |---|---|
 |A|3|
+
+--
+
+### Using with Ruby
+
+- [neo4j-core](https://github.com/neo4jrb/neo4j-core/wiki) : Wrapper for entire Neo4J API for ruby. Supports embedded Neo4j when using JRuby
+
+- [neo4j](https://github.com/neo4jrb/neo4j) : An Active Model wrapper that users neo4j-core
+
+- [neography](https://github.com/maxdemarzi/neography) : A wrapper over the Neo4j REST API
+
+--
+
+### Using Neography
+
+- Get a server URL (default url for local servers is http://localhost:7474)
+
+- Make a connection
+
+``` ruby
+@neo = Neography::Rest.new("http://localhost:7474");
+```
+
+- Disregard the rest of the API and just run queries!
+
+``` ruby
+@neo.execute_query("MATCH (n) WHERE n.name= {name}", {:name => "A"});
+```
+
+--
+
+### Summary
+
+- Represent your data as nodes connected by relationships
+
+- Traverse complex relationships without the overhead of joins
+
+- Simple query language that's similar to SQL
+
+- Fun!

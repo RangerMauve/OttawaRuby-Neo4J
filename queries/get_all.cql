@@ -1,2 +1,2 @@
-MATCH node
+MATCH (node)
 RETURN node
